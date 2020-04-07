@@ -63,4 +63,14 @@ dependencies {
 
     // Core with Ktx
     implementation "androidx.core:core-ktx:$version_core"
+
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit: $version_retrofit"
+//    implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"  not needed aa app is using Moshi-ConverterFactory instead
+
+    // moshi for json data converter
+    implementation "com.squareup.moshi:moshi:$version_moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
+
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
 }
