@@ -51,7 +51,7 @@ class OverviewFragment : Fragment() {
         binding.setLifecycleOwner(this.viewLifecycleOwner)
 
         // Giving the binding access to the OverviewViewModel
-        binding.viewModel = viewModel
+        binding.viewModelV = viewModel
 
         setHasOptionsMenu(true)
         return binding.root
@@ -63,9 +63,5 @@ class OverviewFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.overflow_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    private fun getMarsRealStateProperties(){
-
     }
 }

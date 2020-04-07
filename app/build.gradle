@@ -28,12 +28,19 @@ android {
     }
     defaultConfig {
         applicationId "com.example.android.marsrealestate"
-        minSdkVersion 19
+//        minSdkVersion 19
+        minSdkVersion 25
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    compileOptions {                              // didn't help with the error:
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -73,4 +80,15 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
 
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+
+    // Coroutine, retrofit-coroutines adapter
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
+    implementation "com.squareup.okhttp3:okhttp:$version_okhttp"
+//    implementation 'com.jakewharton.retrofit:retrofit1-okhttp3-client:1.0.2'
+    implementation("com.squareup.okhttp3:okhttp:4.5.0")
+
+    // image handling using glide
+    implementation "com.github.bumptech.glide:glide:$version_glide"
 }
