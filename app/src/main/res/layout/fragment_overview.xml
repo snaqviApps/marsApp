@@ -23,7 +23,7 @@
 
     <data>
         <variable
-            name="viewModel"
+            name="viewModelV"
             type="com.example.android.marsrealestate.overview.OverviewViewModel" />
     </data>
 
@@ -31,14 +31,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.android.marsrealestate.MainActivity">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.property.imgSrcUrl}"
+<!--        TODO: replace TextVeiw with recyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/photos_grid"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="6dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:clipToPadding="false"
+            app:spanCount="2"
+            app:listbAdapterData="@{viewModelV.properties}"
+            tools:itemCount="16"
+            tools:listitem="@layout/grid_view_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

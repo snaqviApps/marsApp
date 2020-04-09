@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.d
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
@@ -20,8 +20,26 @@ package com.example.android.marsrealestate
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.android.marsrealestate.network.MarsProperty
+import com.example.android.marsrealestate.overview.PhotoGridAdapter
+
+
+/**
+ *  TODO: binding-adapter is going to iniitialize PhotoGridAdapter, using a binding-adapter to set the recyclerView data will cause
+ *  the 'dataBinding' automatically observe the 'livdData' with the list of MarsProperty on our behalf,
+ *  so this will be adapter (bindingAdapter) will be called when marsProperty list updates
+ *
+ */
+//
+
+@BindingAdapter("listbAdapterData")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<MarsProperty>?){
+    val adapter = recyclerView.adapter as PhotoGridAdapter
+    adapter.submitList(data)
+}
 
 /**
  * Uses the Glide library to load an image by URL into an [ImageView]
