@@ -25,13 +25,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.marsrealestate.databinding.GridViewItemBinding
 import com.example.android.marsrealestate.network.MarsProperty
 
-class PhotoGridAdapter: ListAdapter<MarsProperty, PhotoGridAdapter.MarsPropertyViewHolder> (DiffCallback){
+// TODO: add onClickListener parameter to adapter declaration
+class PhotoGridAdapter(val onClickListener: OnClickListener) :
+        ListAdapter<MarsProperty, PhotoGridAdapter.MarsPropertyViewHolder> (DiffCallback){
 
     /** binds MarsProperty to Layout */
     class MarsPropertyViewHolder(private var binding: GridViewItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(marsProperty: MarsProperty){
-        binding.propertyV = marsProperty
-        binding.executePendingBindings()                                  // execute immediately, saves recyclerView extra calculation
+        fun bind(marsProperty: MarsProperty) {
+            binding.propertyV = marsProperty
+            binding.executePendingBindings()                                  // execute immediately, saves recyclerView extra calculation
         }
     }
 
@@ -51,7 +53,21 @@ class PhotoGridAdapter: ListAdapter<MarsProperty, PhotoGridAdapter.MarsPropertyV
 
     override fun onBindViewHolder(holder: PhotoGridAdapter.MarsPropertyViewHolder, position: Int) {
         val marsProperty = getItem(position)
+
+        // TODO: call onClick function from OnClickListener in a lambda from setOnclickListener
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(marsProperty)
+        }
         holder.bind(marsProperty)
+    }
+
+    // TODO: create an internal OnClickListener class with a lambda in its constructor that initializes a matching onClick function
+    class OnClickListener(val clickListener: (marsProperty: MarsProperty) -> Unit) {
+//        fun onClick(marsProperty: MarsProperty) = clickListener(marsProperty)
+        fun onClick(marsProperty: MarsProperty) {                                   /** equivalent to above, and works :) */
+                return clickListener(marsProperty)
+       }
+
     }
 
 }

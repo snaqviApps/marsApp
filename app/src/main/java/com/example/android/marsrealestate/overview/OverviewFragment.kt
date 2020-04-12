@@ -20,10 +20,11 @@ package com.example.android.marsrealestate.overview
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.android.marsrealestate.R
 import com.example.android.marsrealestate.databinding.FragmentOverviewBinding
-import com.example.android.marsrealestate.databinding.GridViewItemBinding
 
 /**
  * This fragment shows the the status of the Mars real-estate web services transaction.
@@ -53,8 +54,24 @@ class OverviewFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModelV = viewModel
 
-        // TODO: Set binding.photoGripAdapter to new PhotoGridAdapter
-        binding.photosGrid.adapter = PhotoGridAdapter()
+      // TODO: Initialize photoGridAdpater with OnClickListener that calls viewModel.displayPropertyDetails
+      //  method and passes the selected property to it
+      binding.photosGrid.adapter = PhotoGridAdapter(
+                PhotoGridAdapter.OnClickListener {
+                    viewModel.displayPropertyDetails(it)
+                })
+
+        // TODO: Observe navigateToSelectedProperty, Naviagate when MarsProperty is not null,
+        //  then call associated done method
+        viewModel.navigateToSelectedPropery.observe(this.viewLifecycleOwner, Observer { _pSelected ->
+            _pSelected.let {
+                if (null != _pSelected) {
+                    findNavController().navigate(OverviewFragmentDirections
+                            .actionShowDetail(_pSelected))
+                    viewModel.displayPropertyDetailsComplete()
+                }
+            }
+        })
 
         setHasOptionsMenu(true)
         return binding.root
