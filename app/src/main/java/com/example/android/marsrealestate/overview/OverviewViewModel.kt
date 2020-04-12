@@ -21,11 +21,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.marsrealestate.network.MarsApi
+import com.example.android.marsrealestate.network.MarsApiFilter
+import com.example.android.marsrealestate.network.MarsApiService
 import com.example.android.marsrealestate.network.MarsProperty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
@@ -61,8 +64,10 @@ class OverviewViewModel : ViewModel() {
     /**
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
      */
+
+    // TODO: pass MarsApiFilter.SHOW_ALL as the default parameter to getMarsRealEstateProperties()
     init {
-        getMarsRealEstateProperties()
+        getMarsRealEstateProperties(MarsApiFilter.SHOW_ALL)
     }
 
     /**
@@ -70,10 +75,12 @@ class OverviewViewModel : ViewModel() {
      * [MarsProperty] [LiveData]. The Retrofit service returns a coroutine Deferred, which we await
      * to get the result of the transaction.
      */
-    private fun getMarsRealEstateProperties() {
+    //TODO: Add MarsApiFilter parameter to getMarsRealEstateProperties
+    private fun getMarsRealEstateProperties(filter: MarsApiFilter) {
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
-            var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
+            // TODO: add filter to gerProperties() with filter.value
+            var getPropertiesDeferred = MarsApi.retrofitService.getProperties(filter.value)
             try {
                 _status.value = MarsApiStatus.LOADING
 
@@ -105,4 +112,8 @@ class OverviewViewModel : ViewModel() {
         _navigateToSelectedPropery.value = null
     }
 
+    // TODO: add an updateFilter() method that takes a filter input and re-gets the properties
+    fun updateFilter(filter: MarsApiFilter){
+        getMarsRealEstateProperties(filter)
+    }
 }
